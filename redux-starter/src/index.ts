@@ -1,8 +1,9 @@
 import { compose, pipe } from "lodash/fp";
 import { store } from "./store";
+import { addTask, getId, removeTask } from "./actions";
 
 console.log("The Redux Starter Project!!");
-console.log(store);
+
 //////////////////
 // Lodash and functions
 //////////////////
@@ -203,3 +204,21 @@ const arrayOfGames2 = arrayOfGames.map((game) =>
 );
 console.log("null or not to null? ", arrayOfGames2);
 console.log("array of games", arrayOfGames);
+
+///////////
+//////////
+// PLAYING WITH THE STORE:
+///////////
+//////////
+console.log("ORIGINAL STORE", store);
+
+store.dispatch(addTask("New Task ... it's magic... I knowwww"));
+store.dispatch(addTask("OTHER Task... never believe .."));
+
+console.log("UPDATED STORE - 2 TASKS", store.getState());
+
+const deleteThisId = getId(0);
+console.log(deleteThisId);
+
+store.dispatch(removeTask(deleteThisId));
+console.log("UPDATED STORE - 1 TASK DELETED", store.getState());

@@ -44,6 +44,18 @@ export default function reducer(
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload.id),
       };
+    case "SHOW_TASK":
+      return {
+        ...state,
+        tasks: [
+          ...state.tasks,
+          {
+            id: uuidv4(),
+            task: action.payload.task,
+            complete: action.payload.complete,
+          },
+        ],
+      };
     default:
       return state;
   }
