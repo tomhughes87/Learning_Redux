@@ -6,7 +6,8 @@
       "module": "es6", // Specify module code generation
       "target": "es5", // Specify ECMAScript target version
       "jsx": "react", // Support JSX in .tsx files: "preserve", "react-native", or "react"
-      "allowJs": true // Allow JavaScript files to be compiled
+      "allowJs": true, // Allow JavaScript files to be compiled
+      "moduleResolution": "node"
     },
     "include": [
       "./src/**/*" // Include all files in the src directory
