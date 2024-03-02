@@ -1,38 +1,53 @@
-import {compose, pipe} from "lodash/fp"
-
+import { compose, pipe } from "lodash/fp";
+import { store } from "./store";
 
 console.log("The Redux Starter Project!!");
-
+console.log(store);
 //////////////////
 // Lodash and functions
 //////////////////
-let user = "   Tom  "
+let user = "   Tom  ";
 
-const trim = (name:string) => name.trim()
-const message = (trimmedName:string) => `Hi there ${trimmedName}!`
-const pipeMessage = (mainMessage:string) => `${mainMessage} Generated with pipe lodash`
-const printMessage = (fullMessage:string)=> console.log(fullMessage)
+const trim = (name: string) => name.trim();
+const message = (trimmedName: string) => `Hi there ${trimmedName}!`;
+const pipeMessage = (mainMessage: string) =>
+  `${mainMessage} Generated with pipe lodash`;
+const printMessage = (fullMessage: string) => console.log(fullMessage);
 
-const newComposeFuncLodash: (name: string) => void = compose(printMessage,message,trim)
-newComposeFuncLodash(user)
+const newComposeFuncLodash: (name: string) => void = compose(
+  printMessage,
+  message,
+  trim
+);
+newComposeFuncLodash(user);
 
-const newPipeFuncLodash: (name: string) => void = pipe(trim,message,pipeMessage,printMessage)
-newPipeFuncLodash(user)
+const newPipeFuncLodash: (name: string) => void = pipe(
+  trim,
+  message,
+  pipeMessage,
+  printMessage
+);
+newPipeFuncLodash(user);
 
 //////////////////
 // Currying
 //////////////////
 
-const userMachineLoadingStatus : string = "      Loading    "
-const userMachineName : string = "     Dell j43   "
+const userMachineLoadingStatus: string = "      Loading    ";
+const userMachineName: string = "     Dell j43   ";
 
-const trimText = (text: string) => text.trim()
-const midMessage = (machineName:string) => (loadingState: string) => `${machineName}'s current state is: ${loadingState}`
-const print = (completedMessage:string)=> console.log(completedMessage)
+const trimText = (text: string) => text.trim();
+const midMessage = (machineName: string) => (loadingState: string) =>
+  `${machineName}'s current state is: ${loadingState}`;
+const print = (completedMessage: string) => console.log(completedMessage);
 
-const loadingMessageLodash = compose(print,midMessage(userMachineName),trimText)
+const loadingMessageLodash = compose(
+  print,
+  midMessage(userMachineName),
+  trimText
+);
 
-loadingMessageLodash (userMachineLoadingStatus)
+loadingMessageLodash(userMachineLoadingStatus);
 
 //////////////////
 // Currying by Chris P
@@ -43,38 +58,50 @@ let chrisUsername: string = "        Chris   ";
 let chrisMessage: string = "Good Afternoon";
 
 const chrisTrim = (name: string) => name.trim();
-const generateMessage = (message: string) => (name: string) => `Hello ${name}, ${message}!`;
+const generateMessage = (message: string) => (name: string) =>
+  `Hello ${name}, ${message}!`;
 const convertToUpper = (name: string) => name.toUpperCase();
 
-let outputFunction = pipe(chrisTrim, generateMessage(chrisMessage), convertToUpper);
+let outputFunction = pipe(
+  chrisTrim,
+  generateMessage(chrisMessage),
+  convertToUpper
+);
 
-outputFunction(chrisUsername)
+outputFunction(chrisUsername);
 
 //////
 // advanced
 //////
-const output = (outputText:string) => console.log(`%c ${outputText}`, outputColor);
+const output = (outputText: string) =>
+  console.log(`%c ${outputText}`, outputColor);
 
-output(outputFunction(chrisUsername))
+output(outputFunction(chrisUsername));
 
 //////////////////
 
-console.log( "%chi!",outputColor)
+console.log("%chi!", outputColor);
 
 //////////////////
 //////////////////
 
 //// PURE FUNCTIONS:
-function pureFunction(aNumber:number ) {
-    return aNumber *2
+function pureFunction(aNumber: number) {
+  return aNumber * 2;
 }
 
 //// IMPURE FUNCTIONS:
 function impureFunction() {
-    return Math.random()*100
+  return Math.random() * 100;
 }
-console.log("this is a pure functions, it returns the same every time",pureFunction(4))
-console.log("this is an impure functions, it returns differently each time",impureFunction())
+console.log(
+  "this is a pure functions, it returns the same every time",
+  pureFunction(4)
+);
+console.log(
+  "this is an impure functions, it returns differently each time",
+  impureFunction()
+);
 
 //////////////////
 //////////////////
@@ -82,87 +109,97 @@ console.log("this is an impure functions, it returns differently each time",impu
 //////////////////
 //////////////////
 
-let game:any = {
-    publisher: "activision",
-    platforms: ["xbox","pc","ps5"],
-    gameDetails: {
-        name: "Call of Duty: Modern Warfare",
-        price: 69.99,
-        genre: "FPS"
-    }
-}
+let game: any = {
+  publisher: "activision",
+  platforms: ["xbox", "pc", "ps5"],
+  gameDetails: {
+    name: "Call of Duty: Modern Warfare",
+    price: 69.99,
+    genre: "FPS",
+  },
+};
 
 ///////////////
 // Version 1
 
-console.log(game)
-game.publisher="Nintendo" //
-console.log(game)
+console.log(game);
+game.publisher = "Nintendo"; //
+console.log(game);
 ///////////////
 //Version 2
 
-const game2 = [ game, {
+const game2 = [
+  game,
+  {
     publisher: "Sega",
     platforms: ["ps5"],
     gameDetails: {
-        name: "Sonic",
-        price: 29.99,
-        genre: "Adventure"
-    }
-}]
-console.log(game2)
+      name: "Sonic",
+      price: 29.99,
+      genre: "Adventure",
+    },
+  },
+];
+console.log(game2);
 
 ///////////////
 //Version 3 // basic update- updates in memory
-game.gameDetails.price=0.99
+game.gameDetails.price = 0.99;
 
 ///////////////
 //Version 4
 
-const game3 =  {
-    ...game,
-    platforms:["pc-only"]
-}
-console.log(game3)
+const game3 = {
+  ...game,
+  platforms: ["pc-only"],
+};
+console.log(game3);
 
 ///////////////
 //Version 5
 
-const game4 =  {
-    ...game,
-    gameDetails:{...game.gameDetails, price:99}
-}
-console.log(game4)
+const game4 = {
+  ...game,
+  gameDetails: { ...game.gameDetails, price: 99 },
+};
+console.log(game4);
 
 ///////////////
-//Version 6 
-//-this updates the same value in memory! despite us never changing "game", 
+//Version 6
+//-this updates the same value in memory! despite us never changing "game",
 //updating "game5" has changed "game" because they are looking at the same memory block
 
-const game5 =  game
-game5.gameDetails.price=69.69
+const game5 = game;
+game5.gameDetails.price = 69.69;
 
-console.log("game",game)
-console.log("game5",game5)
+console.log("game", game);
+console.log("game5", game5);
 
 //////////////
 //ARRAY
 
-const arrayOfGames= ["game1","game2","game3"]
+const arrayOfGames = ["game1", "game2", "game3"];
 
-console.log(...arrayOfGames, "game4")
-console.log("game 0", ...arrayOfGames)
-const index = arrayOfGames.indexOf("game 2")
-console.log(...arrayOfGames.slice(0,index),"game2.5",...arrayOfGames.slice(index))
+console.log(...arrayOfGames, "game4");
+console.log("game 0", ...arrayOfGames);
+const index = arrayOfGames.indexOf("game 2");
+console.log(
+  ...arrayOfGames.slice(0, index),
+  "game2.5",
+  ...arrayOfGames.slice(index)
+);
 
-console.log(...arrayOfGames.slice(0,index-1),arrayOfGames[index-1]="game2UPGRADE!",...arrayOfGames.slice(index))
-
+console.log(
+  ...arrayOfGames.slice(0, index - 1),
+  (arrayOfGames[index - 1] = "game2UPGRADE!"),
+  ...arrayOfGames.slice(index)
+);
 
 //////////////
 //ARRAY METHOD TOO- MAP
 
-const arrayOfGames2 = arrayOfGames.map((game) => 
-    game==="game1"?"First Game!":game
-)
-console.log("null or not to null? ",arrayOfGames2)
-console.log("array of games",arrayOfGames)
+const arrayOfGames2 = arrayOfGames.map((game) =>
+  game === "game1" ? "First Game!" : game
+);
+console.log("null or not to null? ", arrayOfGames2);
+console.log("array of games", arrayOfGames);

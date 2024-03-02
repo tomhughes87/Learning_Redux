@@ -1,40 +1,50 @@
+// reducer.ts
 import { v4 as uuidv4 } from "uuid";
 
+// Define your Action types
 interface Action {
   type: string;
-  payload: State;
+  payload: any; // Can be detailed further based on actual payload structure
 }
 
+// Define the State shape
 interface State {
-  id: string;
-  task: string;
-  complete: boolean;
+  tasks: {
+    id: string;
+    task: string;
+    complete: boolean;
+  }[];
 }
 
-interface Props {
-  state: State[];
-  action: Action;
-}
+// Initial state with a tasks array
+const initialState: State = {
+  tasks: [],
+};
 
-function reducer(props: Props) {
-  const uniqueId = uuidv4();
-  const { state, action } = props;
+// Reducer function matching Redux signature
+export default function reducer(
+  state: State = initialState,
+  action: Action
+): State {
   switch (action.type) {
     case "ADD_TASK":
-      return [
+      return {
         ...state,
-        {
-          id: uniqueId,
-          task: action.payload.task,
-          complete: action.payload.complete,
-        },
-      ];
-    case "Remove_TASK":
-      return state.filter((thing) => thing.id !== action.payload.id);
-
-      break;
-
+        tasks: [
+          ...state.tasks,
+          {
+            id: uuidv4(),
+            task: action.payload.task,
+            complete: action.payload.complete,
+          },
+        ],
+      };
+    case "REMOVE_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task.id !== action.payload.id),
+      };
     default:
-      break;
+      return state;
   }
 }
