@@ -1,1 +1,1 @@
-console.log("Redux Starter Project!!");
+console.log("The Redux Starter Project!!");
