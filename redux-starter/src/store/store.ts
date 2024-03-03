@@ -1,10 +1,9 @@
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import reducer from "./Tasks/reducer";
 import { thunk } from "redux-thunk";
-import { devToolsEnhancer } from "@redux-devtools/extension";
+import { composeWithDevTools } from "@redux-devtools/extension";
 
 export const store = createStore(
   reducer,
-  applyMiddleware(thunk),
-  devToolsEnhancer({ trace: true })
+  composeWithDevTools(applyMiddleware(thunk))
 );
