@@ -1,6 +1,11 @@
 import { compose, pipe } from "lodash/fp";
-import { store } from "./store";
-import { addTask, getId, removeTask, taskComplete } from "./actions";
+import { store } from "./store/store";
+import {
+  addTask,
+  getId,
+  removeTask,
+  taskComplete,
+} from "./store/Tasks/actions";
 
 console.log("The Redux Starter Project!!");
 
