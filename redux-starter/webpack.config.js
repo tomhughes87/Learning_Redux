@@ -10,6 +10,7 @@ module.exports = {
     static: path.resolve(__dirname, 'dist'), 
     port: 3000
 },
+  devtool: "source-map",
   mode: "development",
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
