@@ -7,11 +7,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, "dist"),
-    },
-    port: 3000,
-  },
+    static: path.resolve(__dirname, 'dist'), 
+    port: 3000
+},
   mode: "development",
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
