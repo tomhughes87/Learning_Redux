@@ -5,6 +5,6 @@ import { devToolsEnhancer } from "@redux-devtools/extension";
 
 export const store = createStore(
   reducer,
-  devToolsEnhancer({ trace: true }),
-  applyMiddleware(thunk)
+  devToolsEnhancer({ trace: true })
+  //   applyMiddleware(thunk)
 );
