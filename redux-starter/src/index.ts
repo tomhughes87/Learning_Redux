@@ -1,6 +1,6 @@
 import { compose, pipe } from "lodash/fp";
 import { store } from "./store";
-import { addTask, getId, removeTask } from "./actions";
+import { addTask, getId, removeTask, taskComplete } from "./actions";
 
 console.log("The Redux Starter Project!!");
 
@@ -222,3 +222,35 @@ console.log(deleteThisId);
 
 store.dispatch(removeTask(deleteThisId));
 console.log("UPDATED STORE - 1 TASK DELETED", store.getState());
+
+///////////
+//////////
+// SUBSCRIBE / UNSUBSCRIBE:
+///////////
+//////////
+
+const unsubscribe = store.subscribe(() => {
+  let Color: string = "background: #272; color: #aada55; font-size: 20px";
+  console.log("%cYou are Subscribed!", Color);
+  let subColour: string = "background: #272; color: #aada55; font-size: 10px";
+  console.log("%cThis function runs every time the store is used", subColour);
+});
+
+// now, when the store is changed, we will auto run the subscription function
+store.dispatch(addTask("a final task..."));
+
+store.dispatch(addTask("and yet final task..."));
+
+unsubscribe();
+
+store.dispatch(addTask("ANDDDDD yet ANOTHER final tasK..."));
+
+///////////
+//////////
+// TASK COMPLETE
+///////////
+//////////
+const idToSetComplete = getId(1);
+store.dispatch(taskComplete(idToSetComplete));
+
+console.log("Completed one task: ", store.getState());

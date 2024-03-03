@@ -1,5 +1,6 @@
 // reducer.ts
 import { v4 as uuidv4 } from "uuid";
+import { ADD_TASK, REMOVE_TASK, TASK_COMPLETE } from "./actionTypes";
 
 // Define your Action types
 interface Action {
@@ -27,7 +28,7 @@ export default function reducer(
   action: Action
 ): State {
   switch (action.type) {
-    case "ADD_TASK":
+    case ADD_TASK:
       return {
         ...state,
         tasks: [
@@ -39,24 +40,34 @@ export default function reducer(
           },
         ],
       };
-    case "REMOVE_TASK":
+    case REMOVE_TASK:
       return {
         ...state,
         tasks: state.tasks.filter((task) => task.id !== action.payload.id),
       };
-    case "SHOW_TASK":
+
+    case TASK_COMPLETE:
       return {
         ...state,
-        tasks: [
-          ...state.tasks,
-          {
-            id: uuidv4(),
-            task: action.payload.task,
-            complete: action.payload.complete,
-          },
-        ],
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload.id ? { ...task, complete: true } : task
+        ),
       };
+
     default:
       return state;
   }
 }
+
+// case "SHOW_TASK":
+//     return {
+//       ...state,
+//       tasks: [
+//         ...state.tasks,
+//         {
+//           id: uuidv4(),
+//           task: action.payload.task,
+//           complete: action.payload.complete,
+//         },
+//       ],
+//     };
