@@ -2,10 +2,12 @@ import { compose, pipe } from "lodash/fp";
 import { store } from "./store/store";
 import {
   addTask,
+  fetchTodoTask,
   getId,
   removeTask,
   taskComplete,
 } from "./store/Tasks/actions";
+import { TIMEOUT } from "dns";
 
 console.log("The Redux Starter Project!!");
 
@@ -239,6 +241,7 @@ const unsubscribe = store.subscribe(() => {
   console.log("%cYou are Subscribed!", Color);
   let subColour: string = "background: #272; color: #aada55; font-size: 10px";
   console.log("%cThis function runs every time the store is used", subColour);
+  console.log("new task from api call: ", store.getState());
 });
 
 // now, when the store is changed, we will auto run the subscription function
@@ -246,7 +249,7 @@ store.dispatch(addTask("a final task..."));
 
 store.dispatch(addTask("and yet final task..."));
 
-unsubscribe();
+// unsubscribe();
 
 store.dispatch(addTask("ANDDDDD yet ANOTHER final tasK..."));
 
@@ -259,3 +262,8 @@ const idToSetComplete = getId(1);
 store.dispatch(taskComplete(idToSetComplete));
 
 console.log("Completed one task: ", store.getState());
+
+///////////
+///////////
+// thunk and apis
+// store.dispatch(fetchTodoTask());

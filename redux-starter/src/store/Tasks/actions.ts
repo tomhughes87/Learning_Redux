@@ -25,3 +25,16 @@ export function taskComplete(id: string) {
 export function getId(index: number) {
   return store.getState().tasks[index].id;
 }
+
+export const fetchTodoTask = () =>
+  async function () {
+    const response: any = await fetch(
+      "https://jsonplaceholder.typicode.com/todos/"
+    );
+    const newTask = await response.json();
+    const numberOfItems = newTask.length;
+    const randomNum = Math.random();
+    const randomIndex = Math.floor(randomNum * numberOfItems);
+    const randomlySelectedTask: string = newTask[randomIndex].title;
+    store.dispatch(addTask(randomlySelectedTask));
+  };
