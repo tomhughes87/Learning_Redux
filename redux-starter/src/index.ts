@@ -2,6 +2,7 @@ import { compose, pipe } from "lodash/fp";
 import { store } from "./store/store";
 import {
   addTask,
+  editTask,
   fetchTodoTask,
   getId,
   removeTask,
@@ -267,3 +268,11 @@ console.log("Completed one task: ", store.getState());
 ///////////
 // thunk and apis
 // store.dispatch(fetchTodoTask());
+
+///////
+// edit task
+
+const idToEdited = getId(1);
+const taskEdited = "Yeahhhhh boi";
+const editPayload = { id: idToEdited, task: taskEdited };
+store.dispatch(editTask(idToEdited, taskEdited));

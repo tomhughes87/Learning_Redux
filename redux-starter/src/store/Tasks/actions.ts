@@ -1,4 +1,4 @@
-import { ADD_TASK, REMOVE_TASK, TASK_COMPLETE } from "./actionTypes";
+import { ADD_TASK, EDIT_TASK, REMOVE_TASK, TASK_COMPLETE } from "./actionTypes";
 import { store } from "../store";
 
 export function addTask(task: string, complete: boolean = false) {
@@ -19,6 +19,13 @@ export function taskComplete(id: string) {
   return {
     type: TASK_COMPLETE,
     payload: { id },
+  };
+}
+
+export function editTask(id: string, task: string) {
+  return {
+    type: EDIT_TASK,
+    payload: { id, task },
   };
 }
 
