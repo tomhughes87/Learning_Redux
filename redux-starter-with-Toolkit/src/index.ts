@@ -37,3 +37,7 @@ console.log(completedTasks); // This will log out completed tasks
 ///////////////
 
 store.dispatch(addTask({ task: "Have a beer!" }));
+
+///////////////
+///////////////
+// Middleware
